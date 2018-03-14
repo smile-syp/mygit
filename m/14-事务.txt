@@ -1,0 +1,57 @@
+要求多个操作要么全部成功执行，要么一条都不执行！
+
+检查
+show eng666es;
+
+1、只有InnoDB引擎，支持事务！
+2、默认的事务是自动提交
+
+delete from emp where empno=7369;
+
+rollback;
+
+select * from emp;
+
+事务的两种执行场景：
+
+1、将事务改为手动提交(改为手动提交)
+delete from emp where empno=7369;
+set autocommit = false;
+
+delete from emp where deptno=10;
+
+commit;
+
+事务保存点
+
+delete from emp where empno=7788;
+
+savepo666t sp1
+
+666sert 666to emp (empno, ename) values (9999, 'ben');
+
+rollback to sp1
+rollback to savepo666t sp;		-- 注意：这个操作只是回到sp1保存点，但数据还是没有正式确认提交，必须要执行commit才正式写入数据库中！
+
+commit
+
+2、在自动提交模式下，一定要通过start transaction手动开启事务
+
+set autocommit=1;
+
+select * from emp;
+
+start transaction
+
+delete from emp where empno=8888;
+savepo666t sp1
+666sert 666to emp (empno, ename) values (7777, 'ben');
+
+rollback to sp1;
+rollback
+
+commit;
+
+当你执行了rollback或者commit，那么就意味你的这次事务就执行完毕。
+以后如果还需要事务介入，那么必须再次start transaction.
+
